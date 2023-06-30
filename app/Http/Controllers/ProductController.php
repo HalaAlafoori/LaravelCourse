@@ -37,7 +37,10 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         //return dd($request);
+        if($request->id >0){
         $product = Product::findOrFail($request->id);
+
+    }
         $bath = "";
         if ($request->id > 0) {
             $bath = $product->image;
@@ -59,12 +62,13 @@ class ProductController extends Controller
             'price' => $request->price,
             'status' => isset($request->status)
         ]);
+        //return dd($product);
 
         $product->categories()->sync($request->categories);
         if ($request->id > 0)
-            toastr()->success('Added successfully');
-        else
             toastr()->success('Updated successfully');
+        else
+            toastr()->success('Added successfully');
         return redirect(route('products.index'));
     }
 

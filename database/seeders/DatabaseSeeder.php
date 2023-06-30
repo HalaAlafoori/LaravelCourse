@@ -11,10 +11,10 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {   $this->call([CategorySeeder::class]);
+    {   $this->call([PermissionsSeeder::class]);
 
 
-        // \App\Models\User::factory(10)->create();
+//         \App\Models\Premission::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

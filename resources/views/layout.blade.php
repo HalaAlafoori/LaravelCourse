@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{__("code")}}">
 
 <head>
 
@@ -18,7 +18,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href={{asset("admin/css/sb-admin-2.min.css")}} rel="stylesheet">
+    <link href={{asset("admin/css/sb-admin-2.css")}} rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @if(__('code')=='ar')
         <link href={{asset("admin/css/sb-admin-2-rtl.css")}} rel="stylesheet">
@@ -70,9 +70,9 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="{{Route('cards')}}">Cards</a>
+                        <h6 class="collapse-header">Authorization:</h6>
+                        <a class="collapse-item" href="{{Route('roles.index')}}">roles</a>
+                        <a class="collapse-item" href="">users</a>
                     </div>
                 </div>
             </li>
@@ -88,9 +88,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">store:</h6>
-                        <a class="collapse-item" href="{{route('categories.index')}}">Categories</a>
+                        <a class="collapse-item" href="{{route('categories.index')}}">{{__('categories')}}</a>
                         <a class="collapse-item" href="{{route('brands.index')}}">Brands</a>
-                        <a class="collapse-item" href="{{route('products.index')}}">Products</a>
+                        <a class="collapse-item" href="{{route('products.index')}}">{{__('products')}}</a>
                     </div>
                 </div>
             </li>

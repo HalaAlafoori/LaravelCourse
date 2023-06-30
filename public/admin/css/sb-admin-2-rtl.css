@@ -151,6 +151,7 @@ caption {
 }
 
 @media (min-width: 768px) {
+
     .offset-md-0 {
         margin-right: 0;
         margin-left: unset;
