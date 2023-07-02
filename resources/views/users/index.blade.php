@@ -33,13 +33,10 @@
 
                     </td>
                     <td>{{$user->email}}</td>
-                    <td>{{$user->phone}}</td>
-                    <td>
-                    @foreach($user->roles as $role )
-                  <span class="mx-1"> {{$role->name}}</td>
-                    @endforeach
-                    </td>
+                    <td>{{$user->Phone}}</td>
                     <td><img width="50" src="{{url('storage/'.$user->image)}}"></td>
+
+
 
                     <td>{{$user->status}}</td>
                     <td style="width: 180px;">

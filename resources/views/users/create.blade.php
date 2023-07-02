@@ -8,9 +8,11 @@
               enctype="multipart/form-data"
               method="post" action="{{route('users.store')}}">
             @csrf
+
             @isset($user)
 
                 <input type="hidden" name="id" value="{{$user->id}}">
+                <input type="hidden" name="old" value="{{$user->id}}">
             @endisset
             <div class="form-group">
                 <label for="name">Name</label>
@@ -37,7 +39,7 @@
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" value="{{old('password',$user??"")}}" name="password"
+                <input type="password" value="{{old('password')}}" name="password"
                        class="form-control @error('password') is-invalid @enderror"
                        placeholder="Enter password" id="password">
 
@@ -49,7 +51,7 @@
 
             <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="text" value="{{old('phone',$user??"")}}" name="phone"
+                <input type="text" value="{{old('Phone',$user??"")}}" name="phone"
                        class="form-control @error('phone') is-invalid @enderror"
                        placeholder="Enter phone" id="phone">
 
@@ -62,11 +64,21 @@
                 <select class="form-control select2  @error('roles') is-invalid @enderror" name="roles"
                         id="role_id">
                     <option value="">select role</option>
+                    @isset($user)
+                    @foreach($user->roles as $role)
+                    <span class="mx-1"> @php
+                       $userRole= $role->name
+                    @endphp </span>
+                @endforeach
+                @endisset
+
                     @foreach($roles as $role)
                         <option value="{{$role->name}}"
-                            {{--                @if(old('brand_id')==$brand->id) selected @endif--}}
+                            @isset($user)
+                         @if($role->name==$userRole) selected @endif
+                         @endisset
 
-                            {{--                            @selected(old('brand_id',$user??"") == $role->name)--}}
+                            {{--                            @selected(old('brand_id',$user??"") == $role->name) --}}
                         >{{$role->name}}</option>
                     @endforeach
 
@@ -84,10 +96,15 @@
                 @error('image')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                @isset($product)
-                    <img width="100" src="{{url('storage/'.$product->image)}}">
-                @endisset
+
+                @isset($user)
+
+                <td><img width="100" src="{{url('storage/'.$user->image)}}"></td>
+            @endisset
+
             </div>
+
+
 
             <div class="form-group form-check">
                 <label class="form-check-label">

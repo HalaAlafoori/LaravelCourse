@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -37,10 +38,11 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'roles' => ['required'],
             'phone' => ['required', 'string', 'max:15'],
-            'password'=>['required', 'string', 'min:6'],
+            //'password'=>['required', 'string', 'min:6'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $request->id],
            // 'image'=>['required','image','max:51120'],
-            "image"=>[request()->id>0?"nullable":"required","image","max:51120"]
+            "image"=>[request()->id>0?"nullable":"required","image","max:51120"],
+            "password"=>[request()->id>0?"nullable":"required","string", "min:6"],
 
         ]);
 
@@ -60,7 +62,7 @@ class UserController extends Controller
        //change path and store file
 
 
-      // return dd($request);
+
 
 
         $user = User::updateOrCreate(
@@ -99,7 +101,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $roles=Role::all();
 
+        return view('users.create',compact('roles','user'));
     }
 
     /**
@@ -113,8 +117,16 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+
+        Storage::delete($user->image);
+
+        foreach($user->roles as $role)
+        $user->removeRole($role);
+
+        $user->delete();
+        toastr()->success("Deleted successfully");
+        return redirect(route(('users.index')));
     }
 }
