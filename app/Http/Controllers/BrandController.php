@@ -8,6 +8,16 @@ use App\Http\Requests\UpdateBrandRequest;
 
 class BrandController extends Controller
 {
+
+    public function __construct()
+{
+    $this->middleware('permission:access-brands',['only'=>['index']]);
+    $this->middleware('permission:create-brands',['only'=>['create','store']]);
+    $this->middleware('permission:update-brands',['only'=>['edit','update']]);
+    $this->middleware('permission:delete-brands',['only'=>['destroy']]);
+
+
+}
     /**
      * Display a listing of the resource.
      */

@@ -10,6 +10,7 @@
 	<title>404 HTML Template by Colorlib</title>
 
 	<!-- Google font -->
+
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
 
 	<!-- Custom stlylesheet -->
@@ -31,11 +32,11 @@
 		<div class="notfound">
 			<div class="notfound-404">
 				<div></div>
-				<h1>500</h1>
+				<h1>403</h1>
 			</div>
-			<h2>Internal server error</h2>
+			<h2>Page not authorized</h2>
 
-            <a href="{{route('dashboard')}}">home page</a>
+			<a href="{{route('dashboard')}}">home page</a>
 		</div>
 	</div>
 

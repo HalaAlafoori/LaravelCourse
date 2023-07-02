@@ -8,6 +8,16 @@ use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:access-categories',['only'=>['index']]);
+        $this->middleware('permission:create-categories',['only'=>['create','store']]);
+        $this->middleware('permission:update-categories',['only'=>['edit','store']]);
+        $this->middleware('permission:delete-categories',['only'=>['destroy']]);
+
+
+    }
     /**
      * Display a listing of the resource.
      */

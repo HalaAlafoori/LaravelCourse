@@ -2,7 +2,9 @@
  @section('content')
  <div class="container-fluid">
  <h1>Categories</h1>
+ @can('access-categories')
  <a class="btn btn-success float-right" href="{{route('categories.create')}} ">Create</a>
+ @endcan
  <table class="table table-striped">
     <thead>
       <tr>
@@ -21,12 +23,15 @@
             <td>{{$category['status']}}</td>
             <td>{{$category['type']}}</td>
             <td>
-
+                @can('update-categories')
                 <a href="{{route('categories.edit',$category)}}">
                     <span class="btn  btn-outline-success btn-sm font-1 mx-1">
-                        <span class="fas fa-wrench "></span> تحكم
+                        <span class="fas fa-wrench "></span> edit
                     </span>
                 </a>
+                @endcan
+                @can('delete-categories')
+
 
                 <form method="post" action="{{route('categories.destroy',$category)}}">
                     @csrf
@@ -34,6 +39,7 @@
                     <button onclick="var result=confirm('R U sure?'); if(result){} else{event.preventDefault()}" class="btn btn-danger">Delete</button>
 
                 </form>
+                @endcan
 
             </td>
           </tr>

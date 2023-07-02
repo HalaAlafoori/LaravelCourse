@@ -5,8 +5,9 @@
     <div class="container-fluid bg-white">
         <h1> users</h1>
 
+        @can('create-users')
         <a href="{{route('users.create')}}" class="btn btn-primary mb-5 float-right"> create</a>
-
+        @endcan
         <table class="table table-striped">
             <thead>
             <tr>
@@ -40,11 +41,15 @@
 
                     <td>{{$user->status}}</td>
                     <td style="width: 180px;">
+                        @can('update-users')
+
                         <a href="{{route('users.edit',$user)}}">
 							<span class="btn  btn-outline-success btn-sm font-1 mx-1">
 								<span class="fas fa-wrench "></span> edit
 							</span>
                         </a>
+                        @endcan
+                        @can('delete-users')
                         <form method="POST" action="{{route('users.destroy',$user)}}"
                               class="d-inline-block">
                             @csrf
@@ -55,6 +60,7 @@
                                 <span class="fas fa-trash "></span> delete
                             </button>
                         </form>
+                        @endcan
 
 
                     </td>

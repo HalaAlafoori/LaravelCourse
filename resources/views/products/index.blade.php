@@ -2,7 +2,9 @@
  @section('content')
  <div class="container-fluid">
  <h1>products</h1>
+ @can('create-products')
  <a class="btn btn-success float-right" href="{{route('products.create')}} ">Create</a>
+ @endcan
  <table class="table table-striped">
     <thead>
       <tr>
@@ -41,20 +43,21 @@
             <td>{{$product['status']}}</td>
             <td>{{$product->brand->name}}</td>
             <td>
-
+                @can('update-products')
                 <a href="{{route('products.edit',$product)}}">
                     <span class="btn  btn-outline-success btn-sm font-1 mx-1">
                         <span class="fas fa-wrench "></span> تحكم
                     </span>
                 </a>
-
+                @endcan
+                @can('delete-products')
                 <form method="post" action="{{route('products.destroy',$product)}}">
                     @csrf
                     @method('DELETE')
                     <button onclick="var result=confirm('R U sure?'); if(result){} else{event.preventDefault()}" class="btn btn-danger">Delete</button>
 
                 </form>
-
+                @endcan
             </td>
           </tr>
         @empty

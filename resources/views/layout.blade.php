@@ -71,8 +71,12 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Authorization:</h6>
+                        @can('access-roles')
                         <a class="collapse-item" href="{{Route('roles.index')}}">roles</a>
+                        @endcan
+                        @can('access-users')
                         <a class="collapse-item" href="{{Route('users.index')}}">users</a>
+                        @endcan
                     </div>
                 </div>
             </li>
@@ -88,9 +92,16 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">store:</h6>
-                        <a class="collapse-item" href="{{route('categories.index')}}">{{__('categories')}}</a>
-                        <a class="collapse-item" href="{{route('brands.index')}}">Brands</a>
+                        @can('access-categories')
+                          <a class="collapse-item" href="{{route('categories.index')}}">{{__('categories')}}</a>
+
+                        @endcan
+                        @can('access-brands')
+                            <a class="collapse-item" href="{{route('brands.index')}}">Brands</a>
+                        @endcan
+                        @can('access-products')
                         <a class="collapse-item" href="{{route('products.index')}}">{{__('products')}}</a>
+                        @endcan
                     </div>
                 </div>
             </li>
