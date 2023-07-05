@@ -13,6 +13,15 @@ use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:access-roles',['only'=>['index']]);
+        $this->middleware('permission:create-roles',['only'=>['create','store']]);
+        $this->middleware('permission:update-roles',['only'=>['edit','store']]);
+        $this->middleware('permission:delete-roles',['only'=>['destroy']]);
+
+
+    }
     public function index()
     {
         $roles=Role::all();

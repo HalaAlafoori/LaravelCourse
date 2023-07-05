@@ -13,7 +13,7 @@ class CategoryController extends Controller
     {
         $this->middleware('permission:access-categories',['only'=>['index']]);
         $this->middleware('permission:create-categories',['only'=>['create','store']]);
-        $this->middleware('permission:update-categories',['only'=>['edit','store']]);
+        $this->middleware('permission:update-categories',['only'=>['edit','update']]);
         $this->middleware('permission:delete-categories',['only'=>['destroy']]);
 
 

@@ -11,6 +11,15 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:access-products',['only'=>['index']]);
+        $this->middleware('permission:create-products',['only'=>['create','store']]);
+        $this->middleware('permission:update-products',['only'=>['edit','store']]);
+        $this->middleware('permission:delete-products',['only'=>['destroy']]);
+
+
+    }
     /**
      * Display a listing of the resource.
      */
