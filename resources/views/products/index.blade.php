@@ -16,6 +16,7 @@
         <th>Description</th>
         <th>Status</th>
         <th>Brand</th>
+        <th>Created By</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -42,6 +43,7 @@
             <td>{{$product->desc}}</td>
             <td>{{$product['status']}}</td>
             <td>{{$product->brand->name}}</td>
+            <td>{{$product->user?->name}}</td>
             <td>
                 @can('update-products')
                 <a href="{{route('products.edit',$product)}}">
