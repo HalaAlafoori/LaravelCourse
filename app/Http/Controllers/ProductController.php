@@ -26,7 +26,11 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products=Product::all();
+        $products=Product::where('price','>','3')->orderBy('price','desc')->paginate(20);
+        // $products=Product::all()->where('name','like','%Samsung%');//??
+        // $products=Product::all()->whereNotBetween('price',[200,1000]);
+        // $products=Product::all()->whereNotNull('desc');
+
         return view('products.index',compact('products'));
     }
 

@@ -13,11 +13,11 @@ class ProductController extends BaseAPIController
     //
     public  function  index()
     {
-        $products=Product::all();
-        //ProductResource::collection($products);
-        //$products = Product::with(['brand', 'categories'])->get();
+    //     $products=Product::all();
 
-       return (ProductResource::collection($products));
+    //    return (ProductResource::collection($products));
+    $products=Product::paginate(3);
+    return($products);
     }
 
     public function store(Request $request){
