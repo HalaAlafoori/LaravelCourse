@@ -15,6 +15,11 @@
 
         <th>Description</th>
         <th>Status</th>
+        @if($deleted)
+
+            <th>deleted by</th>
+            <th>deleted at</th>
+        @endif
         <th>Brand</th>
         <th>Created By</th>
         <th>Actions</th>
@@ -42,16 +47,24 @@
 
             <td>{{$product->desc}}</td>
             <td>{{$product['status']}}</td>
+
+            @if($deleted)
+
+            <th>{{$product->userWhoDelete?->name}}</th>
+            <th>{{$product->deleted_at}}</th>
+        @endif
             <td>{{$product->brand->name}}</td>
             <td>{{$product->user?->name}}</td>
             <td>
+                @if(!$deleted)
                 @can('update-products')
                 <a href="{{route('products.edit',$product)}}">
                     <span class="btn  btn-outline-success btn-sm font-1 mx-1">
-                        <span class="fas fa-wrench "></span> تحكم
+                        <span class="fas fa-wrench "></span> Edit
                     </span>
                 </a>
                 @endcan
+
                 @can('delete-products')
                 <form method="post" action="{{route('products.destroy',$product)}}">
                     @csrf
@@ -60,6 +73,25 @@
 
                 </form>
                 @endcan
+                @endif
+                @if($deleted)
+
+                <a href="{{route('products.restore',$product->id)}}">
+                    <span class="btn  btn-outline-success btn-sm font-1 mx-1">
+                        <span class="fas fa-wrench "></span> Restore
+                    </span>
+                </a>
+
+
+                @can('delete-products')
+                <form method="post" action="{{route('products.forceDelete',$product->id)}}">
+                    @csrf
+                    @method('DELETE')
+                    <button onclick="var result=confirm('R U sure?'); if(result){} else{event.preventDefault()}" class="btn btn-danger">Delete </button>
+
+                </form>
+                @endcan
+                @endif
             </td>
           </tr>
         @empty

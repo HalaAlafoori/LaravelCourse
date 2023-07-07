@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 
@@ -23,6 +24,36 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function trash()
+    {$products=Product::onlyTrashed()->paginate(20);
+        $deleted=1;
+
+
+        return view('products.index',compact('products','deleted'));
+
+    }
+
+    public function restore($id)
+    {
+        Product::onlyTrashed()->where('id',$id)->restore();
+        toastr()->success('Restored successfully');
+        return redirect(route('products.index'));
+
+
+    }
+
+    public function forceDelete($id)
+    {
+        Product::onlyTrashed()->where('id',$id)->forceDelete();//or withTrashed
+        toastr()->success('Deleted permanently successfully');
+        return redirect(route('products.trash'));
+
+
+    }
+
+
+
+
     public function index()
     {
 
@@ -30,8 +61,9 @@ class ProductController extends Controller
         // $products=Product::all()->where('name','like','%Samsung%');//??
         // $products=Product::all()->whereNotBetween('price',[200,1000]);
         // $products=Product::all()->whereNotNull('desc');
+        $deleted=0;
 
-        return view('products.index',compact('products'));
+        return view('products.index',compact('products','deleted'));
     }
 
     /**
@@ -117,6 +149,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         Storage::delete($product->image);
+        $product->deleted_by=auth()->id();
+        $product->save();
 
         $product->delete();
         toastr()->success("Deleted successfully");
