@@ -93,7 +93,7 @@ class UserController extends Controller
         if ($request->id > 0)
             toastr()->success('Updated successfully');
         else
-            toastr()->success('Added successfully'.$path);
+            toastr()->success('Added successfully');
         return redirect(route('users.index'));
     }
 

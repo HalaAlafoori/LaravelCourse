@@ -64,6 +64,8 @@ class ProductController extends Controller
         $deleted=0;
 
         return view('products.index',compact('products','deleted'));
+        // $not=auth()->user()->notifications;
+        // return dd($not);
     }
 
     /**
@@ -109,7 +111,6 @@ class ProductController extends Controller
         ]);
         //return dd($product);
 
-        $product->categories()->sync($request->categories);
         if ($request->id > 0)
             toastr()->success('Updated successfully');
         else
