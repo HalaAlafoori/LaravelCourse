@@ -1,11 +1,13 @@
 <?php
 
+use App\Mail\TestEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RoleController;
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
-
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
@@ -51,6 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('products',ProductController::class);
     Route::resource('roles',RoleController::class);
     Route::resource('users',UserController::class);
+    Route::get('/sendemail',function(){
+        Mail::to('moha6.afoori@gmail.com')->send(new TestEmail(['title'=>'LaravelCourse','name'=>auth()->user()->name]));
+        return '<h1>email sent</h1>';
+    });
 
    
     Route::get('/changeLang/{lang}',function (string $locale)
