@@ -7,6 +7,7 @@
 
         @can('create-users')
         <a href="{{route('users.create')}}" class="btn btn-primary mb-5 float-right"> create</a>
+        <a href="{{route('users.export')}}" class="btn btn-info mb-5 "> export to excel</a>
         @endcan
         <table class="table table-striped">
             <thead>

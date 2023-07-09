@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('products/restore{id}',[ProductController::class,'restore'])->name('products.restore');
     Route::delete('products/forceDelete{id}',[ProductController::class,'forceDelete'])->name('products.forceDelete');
 
+    Route::get('users/export/', [UserController::class, 'export'])->name('users.export');
 
     Route::resource('products',ProductController::class);
     Route::resource('roles',RoleController::class);

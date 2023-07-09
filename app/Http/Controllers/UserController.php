@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -18,6 +21,10 @@ class UserController extends Controller
         $this->middleware('permission:delete-users',['only'=>['destroy']]);
 
 
+    }
+    public function export()
+    {
+        return Excel::download((new UsersExport)->forstatus(1)->forYear(2021), 'users.HTML');
     }
     /**
      * Display a listing of the resource.
