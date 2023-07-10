@@ -44,6 +44,7 @@ class ProductController extends Controller
 
     public function forceDelete($id)
     {
+        Storage::delete($product->image);
         Product::onlyTrashed()->where('id',$id)->forceDelete();//or withTrashed
         toastr()->success('Deleted permanently successfully');
         return redirect(route('products.trash'));
@@ -149,7 +150,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        Storage::delete($product->image);
+
         $product->deleted_by=auth()->id();
         $product->save();
 
